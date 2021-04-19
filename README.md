@@ -1,6 +1,6 @@
 
-[![Build Status](https://travis-ci.org/piotrkot/oojdbc.svg?branch=main)](https://travis-ci.org/piotrkot/oojdbc)
-[![Coverage Status](https://coveralls.io/repos/github/piotrkot/oojdbc/badge.svg?branch=main)](https://coveralls.io/github/piotrkot/oojdbc?branch=main)
+[![Build Status](https://travis-ci.org/piotrkot/oojdbc.svg?branch=master)](https://travis-ci.org/piotrkot/oojdbc)
+[![Coverage Status](https://coveralls.io/repos/github/piotrkot/oojdbc/badge.svg?branch=master)](https://coveralls.io/github/piotrkot/oojdbc?branch=main)
 
 # Object-oriented wrapper for JDBC
 
