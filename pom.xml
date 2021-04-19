@@ -6,8 +6,41 @@
     <name>OO-JDBC wrapper</name>
     <description>Object-Oriented Interface to JDBC.
     </description>
-    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+    <url>https://github.com/piotrkot/oojdbc</url>
+    <version>1.0</version>
+    <inceptionYear>2021</inceptionYear>
+    <developers>
+        <developer>
+            <name>Piotr Kotlicki</name>
+            <email>piotr.kotlicki@gmail.com</email>
+            <organization>None</organization>
+            <organizationUrl>https://github.com/piotrkot</organizationUrl>
+        </developer>
+    </developers>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/piotrkot/oojdbc/issues</url>
+    </issueManagement>
+    <scm>
+        <connection>scm:git:git@github.com:piotrkot/oojdbc.git</connection>
+        <developerConnection>scm:git:git@github.com:piotrkot/oojdbc.git
+        </developerConnection>
+        <url>https://github.com/piotrkot/oojdbc</url>
+    </scm>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.cactoos</groupId>
