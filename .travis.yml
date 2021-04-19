@@ -5,4 +5,4 @@ jdk:
 script:
 - mvn clean package
 after_success:
-- mvn clean test jacoco:report coveralls:report -DrepoToken=$REPO_TOKEN
+- mvn clean test coveralls:report -DrepoToken=$REPO_TOKEN
