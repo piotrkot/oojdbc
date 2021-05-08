@@ -219,7 +219,10 @@ public final class JdbcSessionPsqlTest {
         final DataSource source = this.source();
         new JdbcSessionTx<>(
             new Exec(
-                new Sql("CREATE TABLE employee (name VARCHAR(30))")
+                new Sql(
+                    "CREATE TABLE employee (id serial PRIMARY KEY, name VARCHAR(30));",
+                    "CREATE TABLE team (ref int references employee ON DELETE CASCADE);"
+                )
             )
         ).using(source);
         try {

@@ -65,8 +65,14 @@ public final class Exec implements Stmnt<Void> {
 
     @Override
     public Void using(final Connection conn) throws Exception {
-        final PreparedStatement stmt = new Connect.WithKeys(this.sql.asString())
-            .open(conn);
+        final String vendor = conn.getMetaData().getDatabaseProductName();
+        final Connect connect;
+        if (vendor.equalsIgnoreCase("mysql")) {
+            connect = new Connect.WithKeys(this.sql.asString());
+        } else {
+            connect = new Connect.Plain(this.sql.asString());
+        }
+        final PreparedStatement stmt = connect.open(conn);
         this.args.prepare(stmt);
         return Outcome.VOID.handle(
             Request.EXECUTE.fetch(stmt),
