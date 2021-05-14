@@ -36,16 +36,14 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.cactoos.iterable.IterableOf;
-import org.cactoos.iterable.Joined;
 
 /**
  * Arguments to SQL.
  * @since 1.0
  */
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@RequiredArgsConstructor
 public final class Args implements Preparation {
     /**
      * Arguments.
@@ -54,20 +52,9 @@ public final class Args implements Preparation {
 
     /**
      * Ctor.
-     * @param part First argument
-     * @param parts Other arguments
+     * @param parts Arguments
      */
-    public Args(final Object part, final Object... parts) {
-        this(
-            new Joined<>(part, new IterableOf<>(parts))
-        );
-    }
-
-    /**
-     * Ctor with possible no parameters.
-     * @param parts Other arguments
-     */
-    Args(final Object... parts) {
+    public Args(final Object... parts) {
         this(new IterableOf<>(parts));
     }
 
