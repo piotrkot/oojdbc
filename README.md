@@ -150,7 +150,7 @@ To get started, add dependency to your project:
 <dependency>
     <groupId>com.github.piotrkot</groupId>
     <artifactId>oojdbc</artifactId>
-    <version>1.2</version>
+    <version>1.3</version>
 </dependency>
 ```
 

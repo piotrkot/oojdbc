@@ -121,7 +121,7 @@ public final class SingleOutcome<T> implements Outcome<T> {
 
     @Override
     public T handle(final ResultSet rset, final Statement stmt)
-        throws SQLException {
+        throws Exception {
         T result = null;
         if (rset.next()) {
             result = this.fetch(rset);
@@ -136,9 +136,9 @@ public final class SingleOutcome<T> implements Outcome<T> {
      *
      * @param rset Result set
      * @return The result
-     * @throws SQLException If some error inside
+     * @throws Exception If some error inside
      */
-    private T fetch(final ResultSet rset) throws SQLException {
+    private T fetch(final ResultSet rset) throws Exception {
         return this.mapping.map(rset);
     }
 }

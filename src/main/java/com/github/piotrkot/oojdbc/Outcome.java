@@ -130,9 +130,9 @@ public interface Outcome<T> {
      * @param rset The result set to process
      * @param stmt The statement used in the run
      * @return The result
-     * @throws SQLException If something goes wrong inside
+     * @throws Exception If something goes wrong inside
      */
-    T handle(ResultSet rset, Statement stmt) throws SQLException;
+    T handle(ResultSet rset, Statement stmt) throws Exception;
 
     /**
      * Mapping.
@@ -146,9 +146,9 @@ public interface Outcome<T> {
          *
          * @param rset Result set
          * @return Object
-         * @throws SQLException If fails
+         * @throws Exception If fails
          */
-        T map(ResultSet rset) throws SQLException;
+        T map(ResultSet rset) throws Exception;
     }
 
     /**

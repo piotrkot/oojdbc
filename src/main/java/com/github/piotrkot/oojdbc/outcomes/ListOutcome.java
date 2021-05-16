@@ -32,7 +32,6 @@ package com.github.piotrkot.oojdbc.outcomes;
 
 import com.github.piotrkot.oojdbc.Outcome;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
@@ -79,7 +78,7 @@ public final class ListOutcome<T> implements Outcome<List<T>> {
 
     @Override
     public List<T> handle(final ResultSet rset, final Statement stmt)
-        throws SQLException {
+        throws Exception {
         final List<T> result = new LinkedList<>();
         while (rset.next()) {
             result.add(this.mapping.map(rset));

@@ -33,7 +33,6 @@ package com.github.piotrkot.oojdbc.outcomes;
 import com.github.piotrkot.oojdbc.Outcome;
 import com.github.piotrkot.oojdbc.Utc;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Collection;
 import java.util.Date;
@@ -88,7 +87,7 @@ public final class ColumnOutcome<T> implements Outcome<Collection<T>> {
 
     @Override
     public Collection<T> handle(final ResultSet rset, final Statement stmt)
-        throws SQLException {
+        throws Exception {
         final Collection<T> result = new LinkedList<>();
         while (rset.next()) {
             result.add(this.mapping.map(rset));
