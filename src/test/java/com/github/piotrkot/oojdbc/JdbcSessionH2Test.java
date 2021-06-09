@@ -30,6 +30,7 @@
  */
 package com.github.piotrkot.oojdbc;
 
+import com.github.piotrkot.oojdbc.outcomes.ColumnOutcome;
 import com.github.piotrkot.oojdbc.outcomes.ListOutcome;
 import com.github.piotrkot.oojdbc.statements.Args;
 import com.github.piotrkot.oojdbc.statements.Exec;
@@ -37,7 +38,9 @@ import com.github.piotrkot.oojdbc.statements.Insert;
 import com.github.piotrkot.oojdbc.statements.Select;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collection;
 import javax.sql.DataSource;
+import org.cactoos.iterable.IterableOf;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -208,6 +211,36 @@ public final class JdbcSessionH2Test {
                 )
             ).using(source),
             Matchers.contains("foo")
+        );
+    }
+
+    @Test
+    public void shouldPassArgsIterable() throws Exception {
+        final DataSource source = new H2Source("i8o98");
+        new JdbcSession<>(
+            conn -> {
+                new Exec(
+                    new Sql("CREATE TABLE i8o98 (name VARCHAR(50))")
+                ).using(conn);
+                new Insert<>(
+                    new Sql("INSERT INTO i8o98 (name) VALUES ('Mark')"),
+                    Outcome.VOID
+                ).using(conn);
+                return new Insert<>(
+                    new Sql("INSERT INTO i8o98 (name) VALUES ('Peter')"),
+                    Outcome.VOID
+                ).using(conn);
+            }
+        ).using(source);
+        final Collection<String> fetched = new JdbcSession<>(
+            new Select<>(
+                new Sql("SELECT name FROM i8o98 WHERE name IN (?, ?)"),
+                new Args(new IterableOf<>("Mark", "Peter")),
+                new ColumnOutcome<>(String.class)
+            )
+        ).using(source);
+        MatcherAssert.assertThat(
+            fetched, Matchers.hasSize(2)
         );
     }
 

@@ -38,6 +38,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import lombok.RequiredArgsConstructor;
 import org.cactoos.iterable.IterableOf;
+import org.cactoos.iterable.Joined;
 
 /**
  * Arguments to SQL.
@@ -48,14 +49,26 @@ public final class Args implements Preparation {
     /**
      * Arguments.
      */
-    private final Iterable<Object> arguments;
+    private final Iterable<?> arguments;
 
     /**
      * Ctor.
-     * @param parts Arguments
+     * @param part First argument
+     * @param parts Other arguments
      */
-    public Args(final Object... parts) {
-        this(new IterableOf<>(parts));
+    public Args(final Object part, final Object... parts) {
+        this(
+            new Joined<>(
+                part, new IterableOf<>(parts)
+            )
+        );
+    }
+
+    /**
+     * Ctor.
+     */
+    Args() {
+        this(new IterableOf<>());
     }
 
     @Override

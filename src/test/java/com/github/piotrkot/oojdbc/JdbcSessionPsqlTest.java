@@ -275,5 +275,4 @@ public final class JdbcSessionPsqlTest {
         src.setPassword(this.postgres.getPassword());
         return src;
     }
-
 }

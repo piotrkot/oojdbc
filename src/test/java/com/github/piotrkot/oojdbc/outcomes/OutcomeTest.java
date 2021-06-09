@@ -37,6 +37,7 @@ import com.github.piotrkot.oojdbc.Sql;
 import com.github.piotrkot.oojdbc.statements.Args;
 import com.github.piotrkot.oojdbc.statements.Exec;
 import com.github.piotrkot.oojdbc.statements.Insert;
+import com.github.piotrkot.oojdbc.statements.Update;
 import javax.sql.DataSource;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -70,5 +71,34 @@ public final class OutcomeTest {
             }
         ).using(source);
         MatcherAssert.assertThat(num, Matchers.equalTo(1L));
+    }
+
+    /**
+     * Outcome can count updates.
+     * @throws Exception If there is some problem inside
+     */
+    @Test
+    public void countsUpdates() throws Exception {
+        final DataSource source = new H2Source("xogaa98");
+        final int num = new JdbcSession<>(
+            conn -> {
+                new Exec(
+                    new Sql(
+                        "CREATE TABLE boo (id INT auto_increment, name VARCHAR(50))"
+                    )
+                ).using(conn);
+                new Insert<>(
+                    new Sql("INSERT INTO boo (name) VALUES (?)"),
+                    new Args("Jeff Brown"),
+                    Outcome.LAST_INSERT_ID
+                ).using(conn);
+                return new Update<>(
+                    new Sql("UPDATE boo SET name = ? WHERE id = 1"),
+                    new Args("Mark Smith"),
+                    Outcome.UPDATE_COUNT
+                ).using(conn);
+            }
+        ).using(source);
+        MatcherAssert.assertThat(num, Matchers.equalTo(1));
     }
 }
