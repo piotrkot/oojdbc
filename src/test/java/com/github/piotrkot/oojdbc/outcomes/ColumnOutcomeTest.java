@@ -42,7 +42,7 @@ import java.util.Collection;
 import javax.sql.DataSource;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link ColumnOutcome}.
@@ -50,13 +50,13 @@ import org.junit.Test;
  * @since 1.0
  * @checkstyle ClassDataAbstractionCoupling (2 lines)
  */
-public final class ColumnOutcomeTest {
+final class ColumnOutcomeTest {
     /**
      * ColumnOutcome can return the first column.
      * @throws Exception If there is some problem inside
      */
     @Test
-    public void retrievesFirstColumn() throws Exception {
+    void retrievesFirstColumn() throws Exception {
         final DataSource source = new H2Source("i8o98");
         new JdbcSessionTx<>(
             conn -> {

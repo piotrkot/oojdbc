@@ -43,21 +43,21 @@ import javax.sql.DataSource;
 import org.cactoos.iterable.IterableOf;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link JdbcSession}.
  * @since 1.0
  * @checkstyle ClassDataAbstractionCoupling (2 lines)
  */
-public final class JdbcSessionH2Test {
+final class JdbcSessionH2Test {
 
     /**
      * JdbcSession can do SQL manipulations.
      * @throws Exception If there is some problem inside
      */
     @Test
-    public void sendsSqlManipulationsToJdbcDriver() throws Exception {
+    void sendsSqlManipulationsToJdbcDriver() throws Exception {
         final DataSource source = new H2Source("tiu78");
         new JdbcSessionTx<>(
             conn -> {
@@ -89,7 +89,7 @@ public final class JdbcSessionH2Test {
      * @since 1.0
      */
     @Test
-    public void executesSql() throws Exception {
+    void executesSql() throws Exception {
         final DataSource source = new H2Source("tpl98");
         new JdbcSessionTx<>(
             conn -> {
@@ -108,7 +108,7 @@ public final class JdbcSessionH2Test {
      * @throws Exception If there is some problem inside
      */
     @Test
-    public void automaticallyCommitsByDefault() throws Exception {
+    void automaticallyCommitsByDefault() throws Exception {
         final DataSource source = new H2Source("tt8u");
         final String name = new JdbcSession<>(
             conn -> {
@@ -139,7 +139,7 @@ public final class JdbcSessionH2Test {
      */
     @Test
     @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-    public void releasesConnectionsFromThePool() throws Exception {
+    void releasesConnectionsFromThePool() throws Exception {
         final DataSource source = new H2Source("t445p");
         new JdbcSession<>(
             new Exec(
@@ -163,7 +163,7 @@ public final class JdbcSessionH2Test {
      * @since 1.0
      */
     @Test
-    public void executesSqlInParallelThreads() throws Exception {
+    void executesSqlInParallelThreads() throws Exception {
         final DataSource source = new H2Source("til87");
         new JdbcSession<>(
             new Exec(
@@ -178,7 +178,7 @@ public final class JdbcSessionH2Test {
      * @throws Exception If there is some problem inside
      */
     @Test
-    public void rollbacksTransaction() throws Exception {
+    void rollbacksTransaction() throws Exception {
         final DataSource source = new H2Source("t228x");
         new JdbcSession<>(
             conn -> {
@@ -215,7 +215,7 @@ public final class JdbcSessionH2Test {
     }
 
     @Test
-    public void shouldPassArgsIterable() throws Exception {
+    void shouldPassArgsIterable() throws Exception {
         final DataSource source = new H2Source("i8o98");
         new JdbcSession<>(
             conn -> {

@@ -46,23 +46,26 @@ import java.util.Date;
 import javax.sql.DataSource;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 /**
  * Integration case for {@link JdbcSession}.
  * @since 1.0
  * @checkstyle ClassDataAbstractionCoupling (2 lines)
  */
-public final class JdbcSessionPsqlTest {
+@Testcontainers
+final class JdbcSessionPsqlTest {
 
     /**
      * The database container.
      */
-    @Rule
-    public final PostgreSQLContainer<?> postgres =
-        new PostgreSQLContainer<>(PostgreSQLContainer.IMAGE);
+    @Container
+    private final JdbcDatabaseContainer<?> postgres =
+        new PostgreSQLContainer<>("postgres:9.6.12");
 
     /**
      * JdbcSession can do PostgreSQL manipulations.
@@ -70,7 +73,7 @@ public final class JdbcSessionPsqlTest {
      * @throws Exception If there is some problem inside
      */
     @Test
-    public void manipulatesPostgresql() throws Exception {
+    void manipulatesPostgresql() throws Exception {
         final DataSource source = this.source();
         new JdbcSessionTx<>(
             conn -> {
@@ -98,7 +101,7 @@ public final class JdbcSessionPsqlTest {
      * @throws Exception If there is some problem inside
      */
     @Test
-    public void changesTransactionIsolationLevel() throws Exception {
+    void changesTransactionIsolationLevel() throws Exception {
         final DataSource source = this.source();
         new JdbcSession<>(
             new Exec(
@@ -114,7 +117,7 @@ public final class JdbcSessionPsqlTest {
      * @throws Exception If something goes wrong
      */
     @Test
-    public void callsFunctionWithOutParam() throws Exception {
+    void callsFunctionWithOutParam() throws Exception {
         final DataSource source = this.source();
         new JdbcSessionTx<>(
             conn -> {
@@ -167,7 +170,7 @@ public final class JdbcSessionPsqlTest {
      * @throws Exception If something goes wrong
      */
     @Test
-    public void callsFunctionWithInOutParam() throws Exception {
+    void callsFunctionWithInOutParam() throws Exception {
         final DataSource source = this.source();
         new JdbcSessionTx<>(
             conn -> {
@@ -215,7 +218,7 @@ public final class JdbcSessionPsqlTest {
      * @throws Exception If there is some problem inside
      */
     @Test
-    public void rollbacksTransactionOnException() throws Exception {
+    void rollbacksTransactionOnException() throws Exception {
         final DataSource source = this.source();
         new JdbcSessionTx<>(
             new Exec(

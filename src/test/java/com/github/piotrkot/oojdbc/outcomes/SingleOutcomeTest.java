@@ -45,7 +45,8 @@ import java.util.Date;
 import javax.sql.DataSource;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link SingleOutcome}.
@@ -53,9 +54,9 @@ import org.junit.Test;
  * @since 1.0
  * @checkstyle ClassDataAbstractionCoupling (2 lines)
  */
-public final class SingleOutcomeTest {
+final class SingleOutcomeTest {
     @Test
-    public void retrievesByte() throws Exception {
+    void retrievesByte() throws Exception {
         MatcherAssert.assertThat(
             new JdbcSession<>(
                 new Select<>(
@@ -68,7 +69,7 @@ public final class SingleOutcomeTest {
     }
 
     @Test
-    public void retrievesBigDecimal() throws Exception {
+    void retrievesBigDecimal() throws Exception {
         MatcherAssert.assertThat(
             new JdbcSession<>(
                 new Select<>(
@@ -81,7 +82,7 @@ public final class SingleOutcomeTest {
     }
 
     @Test
-    public void retrievesBytes() throws Exception {
+    void retrievesBytes() throws Exception {
         final int size = 256;
         MatcherAssert.assertThat(
             new JdbcSession<>(
@@ -95,7 +96,7 @@ public final class SingleOutcomeTest {
     }
 
     @Test
-    public void retrievesUtc() throws Exception {
+    void retrievesUtc() throws Exception {
         MatcherAssert.assertThat(
             new JdbcSession<>(
                 new Select<>(
@@ -108,7 +109,7 @@ public final class SingleOutcomeTest {
     }
 
     @Test
-    public void retrievesDate() throws Exception {
+    void retrievesDate() throws Exception {
         MatcherAssert.assertThat(
             new JdbcSession<>(
                 new Select<>(
@@ -121,7 +122,7 @@ public final class SingleOutcomeTest {
     }
 
     @Test
-    public void retrievesString() throws Exception {
+    void retrievesString() throws Exception {
         final DataSource source = this.datasource();
         new JdbcSessionTx<>(
             conn -> {
@@ -149,9 +150,12 @@ public final class SingleOutcomeTest {
         MatcherAssert.assertThat(name, Matchers.startsWith("Jeff"));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void failsFast() {
-        new SingleOutcome<>(Exception.class);
+    @Test
+    void failsFast() {
+        Assertions.assertThrows(
+            IllegalArgumentException.class,
+            () -> new SingleOutcome<>(Exception.class)
+        );
     }
 
     /**

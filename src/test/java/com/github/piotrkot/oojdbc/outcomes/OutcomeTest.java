@@ -41,20 +41,20 @@ import com.github.piotrkot.oojdbc.statements.Update;
 import javax.sql.DataSource;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link Outcome}.
  * @since 1.0
  */
-public final class OutcomeTest {
+final class OutcomeTest {
 
     /**
      * Outcome can fetch last insert id.
      * @throws Exception If there is some problem inside
      */
     @Test
-    public void fetchesLastInsertId() throws Exception {
+    void fetchesLastInsertId() throws Exception {
         final DataSource source = new H2Source("trrto98");
         final Long num = new JdbcSession<>(
             conn -> {
@@ -78,7 +78,7 @@ public final class OutcomeTest {
      * @throws Exception If there is some problem inside
      */
     @Test
-    public void countsUpdates() throws Exception {
+    void countsUpdates() throws Exception {
         final DataSource source = new H2Source("xogaa98");
         final int num = new JdbcSession<>(
             conn -> {

@@ -43,21 +43,21 @@ import java.util.List;
 import javax.sql.DataSource;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link ListOutcome}.
  * @since 1.0
  * @checkstyle ClassDataAbstractionCoupling (2 lines)
  */
-public final class ListOutcomeTest {
+final class ListOutcomeTest {
 
     /**
      * ListOutcome can return the full list.
      * @throws Exception If there is some problem inside
      */
     @Test
-    public void retrievesList() throws Exception {
+    void retrievesList() throws Exception {
         final DataSource source = new H2Source("tto98");
         new JdbcSessionTx<>(
             conn -> {
