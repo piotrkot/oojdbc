@@ -43,9 +43,12 @@ import java.sql.Types;
 import javax.sql.DataSource;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 /**
  * Integration case for {@link JdbcSession} on MySQL.
@@ -54,16 +57,22 @@ import org.testcontainers.containers.MySQLContainer;
  * @checkstyle ClassDataAbstractionCoupling (2 lines)
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
-public final class JdbcSessionMySqlTest {
+@Testcontainers
+final class JdbcSessionMySqlTest {
 
     /**
      * The database container.
      */
-    @Rule
-    public final MySQLContainer<?> mysql = new MySQLContainer<>(MySQLContainer.NAME);
+    @Container
+    private final JdbcDatabaseContainer<?> mysql =
+        new MySQLContainer<>(
+            DockerImageName
+                .parse("mysql/mysql-server:latest")
+                .asCompatibleSubstituteFor("mysql")
+        );
 
     @Test
-    public void worksWithExecute() throws Exception {
+    void worksWithExecute() throws Exception {
         final DataSource source = this.source();
         new JdbcSessionTx<>(
             conn -> {
@@ -80,7 +89,7 @@ public final class JdbcSessionMySqlTest {
     }
 
     @Test
-    public void worksLastInsertId() throws Exception {
+    void worksLastInsertId() throws Exception {
         new JdbcSession<>(
             new Exec(
                 new Sql(
@@ -105,7 +114,7 @@ public final class JdbcSessionMySqlTest {
     }
 
     @Test
-    public void worksLastInsertIdAndTransaction() throws Exception {
+    void worksLastInsertIdAndTransaction() throws Exception {
         new JdbcSession<>(
             new Exec(
                 new Sql(
@@ -148,7 +157,7 @@ public final class JdbcSessionMySqlTest {
     }
 
     @Test
-    public void callsFunctionWithOutParam() throws Exception {
+    void callsFunctionWithOutParam() throws Exception {
         new JdbcSessionTx<>(
             conn -> {
                 new Exec(

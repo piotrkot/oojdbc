@@ -47,15 +47,15 @@ import java.util.TimeZone;
 import javax.sql.DataSource;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case of {@link Utc}.
  * @since 1.0
  * @checkstyle ClassDataAbstractionCoupling (500 lines)
  */
-public final class UtcTest {
+final class UtcTest {
 
     /**
      * Randomizer.
@@ -76,8 +76,8 @@ public final class UtcTest {
      * Prepare this test case.
      * @throws Exception If there is some problem inside
      */
-    @Before
-    public void prepare() throws Exception {
+    @BeforeEach
+    void prepare() throws Exception {
         this.source = new H2Source(
             String.format("xpo%d", UtcTest.RND.nextInt())
         );
@@ -96,7 +96,7 @@ public final class UtcTest {
      * @throws Exception If there is some problem inside
      */
     @Test
-    public void savesDateWithUtcTimezone() throws Exception {
+    void savesDateWithUtcTimezone() throws Exception {
         this.fmt.setCalendar(
             new GregorianCalendar(TimeZone.getTimeZone("GMT-5"))
         );
@@ -129,7 +129,7 @@ public final class UtcTest {
      * @throws Exception If there is some problem inside
      */
     @Test
-    public void loadsDateWithUtcTimezone() throws Exception {
+    void loadsDateWithUtcTimezone() throws Exception {
         final Connection conn = this.source.getConnection();
         final Date loaded;
         try {
@@ -164,7 +164,7 @@ public final class UtcTest {
      * @throws Exception If there is some problem inside
      */
     @Test
-    public void setsAndReadsDateWithDifferentTimezone() throws Exception {
+    void setsAndReadsDateWithDifferentTimezone() throws Exception {
         final Date date = new Date();
         new JdbcSession<>(
             new Insert<>(
